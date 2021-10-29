@@ -1,10 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-
-import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import Head from "next/head";
+import Image from "next/image";
+import { Fragment } from "react";
 import { GiWhistle } from "react-icons/gi";
+
+import { cx } from "../utils/styling";
 
 const user = {
   name: "Larry",
@@ -22,10 +23,6 @@ const userNavigation = [
   { name: "Instellingen", href: "#" },
   { name: "Uitloggen", href: "#" },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Example() {
   return (
@@ -52,7 +49,7 @@ export default function Example() {
                           <a
                             key={item.name}
                             href={item.href}
-                            className={classNames(
+                            className={cx(
                               item.current
                                 ? "bg-gray-900 text-white"
                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
@@ -106,7 +103,7 @@ export default function Example() {
                                 {({ active }) => (
                                   <a
                                     href={item.href}
-                                    className={classNames(
+                                    className={cx(
                                       active ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
@@ -145,7 +142,7 @@ export default function Example() {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className={classNames(
+                      className={cx(
                         item.current
                           ? "bg-gray-900 text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
