@@ -1,11 +1,11 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Fragment } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { GiWhistle } from "react-icons/gi";
 
-import { cx } from "../utils/styling";
+import { cx } from "utils/styling";
 
 const user = {
   name: "Larry",
