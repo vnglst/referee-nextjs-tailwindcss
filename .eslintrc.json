@@ -25,7 +25,6 @@
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-empty-pattern": ["error"],
-
     "no-return-await": ["warn"],
     "no-shadow": ["warn"],
     "require-await": ["error"],
@@ -37,7 +36,6 @@
     "consistent-return": "error",
     "object-shorthand": "error",
     "react/display-name": "error",
-    "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/member-delimiter-style": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-var-requires": "error",

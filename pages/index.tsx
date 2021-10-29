@@ -24,13 +24,11 @@ const userNavigation = [
   { name: "Uitloggen", href: "#" },
 ];
 
-export default function Example() {
+export default function Home() {
   return (
     <>
       <Head>
         <title>Referee</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
       </Head>
 
       <div className="min-h-full">
