@@ -11,8 +11,11 @@ export default function Index() {
       <Head>
         <title>Referee</title>
       </Head>
-      <main className="min-h-full">
-        <button onClick={() => setIsOpen(true)}>
+      <main className="h-full flex flex-col content-center items-center justify-center bg-white bg-home bg-cover">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="rounded-full bg-gray-200 py-4 px-8 m-4 text-sm flex"
+        >
           Waar ben je naar op zoek?
         </button>
       </main>
@@ -22,7 +25,7 @@ export default function Index() {
         service={services[0]}
         postalCode=""
         distance="Alle afstanden"
-        dateTimeStr=""
+        dateTimeStr="2021-11-01T13:27"
       />
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { SearchDialog } from "components/SearchDialog";
 import { searchResults, Service, services } from "data";
@@ -44,13 +45,31 @@ export default function Search(props: SearchProps) {
           return <ResultItem key={profile.id} {...profile} />;
         })}
       </main>
+      <footer className="flex items-center justify-center w-full h-24 border-t mt-auto">
+        <a
+          className="flex items-center justify-center"
+          href="https://digital-capacity.nl/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Powered by{" "}
+          <span className="ml-2">
+            <Image
+              src="/dc.png"
+              alt="Digital Capacity"
+              width={132}
+              height={32}
+            />
+          </span>
+        </a>
+      </footer>
     </>
   );
 }
 
 const ResultItem = ({ image, name, service, woonplaats, motto, price }) => {
   return (
-    <div className="flex p-4 max-w-xl">
+    <div className="flex p-4 max-w-xl mb-8">
       <div className="flex-none w-44 relative">
         <img
           src={image}

@@ -35,9 +35,9 @@ export const SearchDialog: FC<SearchDialogProps> = ({
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
       aria-label="Wat zoek je?"
-      className="animate-fade-in-down h-full sm:h-auto sm:mt-20 bg-gray-100 drop-shadow-xl sm:max-w-xl mx-auto rounded-lg"
+      className="animate-fade-in-down h-full sm:h-auto sm:mt-20 bg-gray-100 drop-shadow-xl sm:max-w-xl mx-auto md:rounded-lg"
     >
-      <div className="w-full h-full bg-grey-100 overflow-auto">
+      <div className="w-full h-full bg-grey-100 overflow-auto text-base md:rounded-lg">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -49,16 +49,16 @@ export const SearchDialog: FC<SearchDialogProps> = ({
           className="relative flex flex-col w-full h-full"
         >
           <div className="flex w-full bg-white p-4 ">
-            <button onClick={close} className="grid items-center">
+            <button onClick={close} className="grid items-center outline-none">
               <span className="sr-only">Terug</span>
               <BiChevronLeft className="text-2xl" />
             </button>
-            <span className="text-center w-full">
+            <span className="text-center w-full text-base">
               Waar ben je naar op zoek?
             </span>
           </div>
-          <div className="font-semibold text-sm mt-6 mb-2 px-4">Dienst</div>
-          <div className="flex flex-wrap p-4 gap-4 bg-white text-sm">
+          <div className="font-semibold  mt-6 mb-2 px-4">Dienst</div>
+          <div className="flex flex-wrap p-4 gap-4 bg-white ">
             {services.map((p) => {
               const isSelected = p.id === service.id;
               return (
@@ -77,7 +77,7 @@ export const SearchDialog: FC<SearchDialogProps> = ({
             })}
           </div>
 
-          <div className="font-semibold text-sm mt-6 mb-2 px-4">Locatie</div>
+          <div className="font-semibold  mt-6 mb-2 px-4">Locatie</div>
           <div className="flex flex-row p-4 bg-white">
             <input
               required
@@ -85,14 +85,14 @@ export const SearchDialog: FC<SearchDialogProps> = ({
               autoComplete="off"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
-              className="w-20 p-2 mr-4"
+              className="w-20 p-2 mr-4 "
             />
 
             <select
               required
               value={distance}
               onChange={(e) => setDistance(e.target.value)}
-              className="form-select block w-full bg-white"
+              className="appearance-none form-select block w-full bg-white py-2 px-3 border border-transparent rounded-md"
             >
               <option>Alle afstanden</option>
               <option>{`< 3 km`}</option>
@@ -102,9 +102,7 @@ export const SearchDialog: FC<SearchDialogProps> = ({
             </select>
           </div>
 
-          <div className="font-semibold text-sm mt-6 mb-2 px-4">
-            Datum en tijdstip
-          </div>
+          <div className="font-semibold  mt-6 mb-2 px-4">Datum en tijdstip</div>
 
           <div className="p-4 bg-white">
             <input
@@ -112,7 +110,7 @@ export const SearchDialog: FC<SearchDialogProps> = ({
               type="datetime-local"
               value={dateTime}
               onChange={(e) => setDateTime(e.target.value)}
-              className="p-2 rounded-full bg-gray-50"
+              className="appearance-none p-2 text-left block rounded-lg bg-gray-50"
             />
           </div>
 
