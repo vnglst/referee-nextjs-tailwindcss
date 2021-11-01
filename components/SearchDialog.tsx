@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Dialog } from "@reach/dialog";
 import { Service, services } from "data";
@@ -21,6 +21,7 @@ export const SearchDialog: FC<SearchDialogProps> = ({
   ...initial
 }) => {
   const router = useRouter();
+  const buttonRef = useRef();
   const [service, setService] = useState(initial.service);
   const [postalCode, setPostalCode] = useState(initial.postalCode);
   const [distance, setDistance] = useState(initial.distance);
@@ -33,11 +34,12 @@ export const SearchDialog: FC<SearchDialogProps> = ({
   return (
     <Dialog
       isOpen={isOpen}
-      onDismiss={() => setIsOpen(false)}
+      initialFocusRef={buttonRef}
+      onDismiss={close}
       aria-label="Wat zoek je?"
-      className="animate-fade-in-down h-full sm:h-auto sm:mt-20 bg-gray-100 drop-shadow-xl sm:max-w-xl mx-auto md:rounded-lg"
+      className="animate-fade-in-down h-full bg-transparent sm:h-auto sm:mt-20 drop-shadow-xl sm:max-w-xl mx-auto md:rounded-lg overflow-auto"
     >
-      <div className="w-full h-full bg-grey-100 overflow-auto text-base md:rounded-lg">
+      <div className="w-full h-full bg-transparent overflow-auto text-base md:rounded-lg">
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -46,10 +48,10 @@ export const SearchDialog: FC<SearchDialogProps> = ({
             );
             close();
           }}
-          className="relative flex flex-col w-full h-full"
+          className="relative flex flex-col w-full h-full overflow-auto bg-gray-100"
         >
-          <div className="flex w-full bg-white p-4 ">
-            <button onClick={close} className="grid items-center outline-none">
+          <div className="sticky top-0 flex w-full bg-white p-4">
+            <button type="button" onClick={close} className="grid items-center">
               <span className="sr-only">Terug</span>
               <BiChevronLeft className="text-2xl" />
             </button>
@@ -61,9 +63,11 @@ export const SearchDialog: FC<SearchDialogProps> = ({
           <div className="flex flex-wrap p-4 gap-4 bg-white ">
             {services.map((p) => {
               const isSelected = p.id === service.id;
+              const refProps = isSelected ? { ref: buttonRef } : {};
               return (
                 <button
                   type="button"
+                  {...refProps}
                   key={p.id}
                   onClick={() => setService(p)}
                   className={cx(
@@ -102,9 +106,9 @@ export const SearchDialog: FC<SearchDialogProps> = ({
             </select>
           </div>
 
-          <div className="font-semibold  mt-6 mb-2 px-4">Datum en tijdstip</div>
+          <div className="font-semibold mt-6 mb-2 px-4">Datum en tijdstip</div>
 
-          <div className="p-4 bg-white">
+          <div className="p-4 mb-2 bg-white">
             <input
               required
               type="datetime-local"
@@ -114,7 +118,7 @@ export const SearchDialog: FC<SearchDialogProps> = ({
             />
           </div>
 
-          <div className="flex justify-end w-full mt-4 p-4">
+          <div className="flex justify-end w-full mt-4 p-4 bg-white">
             <input
               type="submit"
               value="Zoeken"

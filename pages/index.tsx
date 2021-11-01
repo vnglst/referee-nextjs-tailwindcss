@@ -11,7 +11,7 @@ export default function Index() {
       <Head>
         <title>Referee</title>
       </Head>
-      <main className="h-full flex flex-col content-center items-center justify-center bg-white bg-home bg-cover">
+      <main className="h-full flex flex-col content-center items-center justify-center bg-white bg-home bg-cover bg-center">
         <button
           onClick={() => setIsOpen(true)}
           className="rounded-full bg-gray-200 py-4 px-8 m-4 text-sm flex"

@@ -11,7 +11,7 @@ module.exports = {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
-        home: "url('/henrique-macedo.jpg')",
+        home: "url('/henrique-macedo-full.jpg')",
       },
       keyframes: {
         "fade-in-down": {

@@ -23,6 +23,7 @@ export default function Search(props: SearchProps) {
       <Head>
         <title>Zoeken</title>
       </Head>
+      <SearchDialog isOpen={isOpen} setIsOpen={setIsOpen} {...props} />
       <main className="max-w-2xl mx-auto">
         <div className="sticky top-0 bg-gray-100 flex max-w-full z-10 py-4 align-baseline drop-shadow-md sm:drop-shadow-none">
           <Link href="/">
@@ -33,14 +34,13 @@ export default function Search(props: SearchProps) {
           </Link>
           <button
             onClick={open}
-            className="rounded-full bg-gray-300 truncate max-w-full p-2 px-6 mr-4 w-full flex justify-center"
+            className="rounded-full bg-gray-300 truncate max-w-full w-full p-2 px-6 mr-4 flex justify-center"
           >
             <b className="font-semibold">{props.service.name}</b>
             <div className="w-1 h-1 bg-gray-600 mx-2 rounded-full inline-block self-center" />
             {props.postalCode.toUpperCase()}
           </button>
         </div>
-        <SearchDialog isOpen={isOpen} setIsOpen={setIsOpen} {...props} />
         {searchResults.map((profile) => {
           return <ResultItem key={profile.id} {...profile} />;
         })}
