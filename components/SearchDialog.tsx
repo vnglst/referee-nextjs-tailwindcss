@@ -39,9 +39,9 @@ export const SearchDialog: FC<SearchDialogProps> = ({
     >
       <div className="w-full h-full bg-grey-100 overflow-auto text-base md:rounded-lg">
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            router.push(
+            await router.push(
               `zoeken?s=${service.id}&p=${postalCode}&d=${distance}&date=${dateTime}`
             );
             close();
