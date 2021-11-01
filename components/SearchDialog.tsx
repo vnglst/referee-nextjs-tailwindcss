@@ -1,33 +1,32 @@
 import React, { FC, useState } from "react";
 import { useRouter } from "next/router";
 import { Dialog } from "@reach/dialog";
+import { Service, services } from "data";
+import { BiChevronLeft } from "react-icons/bi";
 
-const services = [
-  {
-    id: "scheids",
-    name: "Scheidsrechter",
-  },
-  {
-    id: "bar",
-    name: "Barman/vrouw",
-  },
-  {
-    id: "trainer",
-    name: "Trainer",
-  },
-];
+import { cx } from "utils/styling";
 
 type SearchDialogProps = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  service: Service;
+  postalCode: string;
+  distance: string;
+  dateTimeStr: string;
 };
 
-export const SearchDialog: FC<SearchDialogProps> = ({ isOpen, setIsOpen }) => {
+export const SearchDialog: FC<SearchDialogProps> = ({
+  isOpen,
+  setIsOpen,
+  ...initial
+}) => {
   const router = useRouter();
-  const [service, setService] = useState(services[0]);
-  const [postalCode, setPostalCode] = useState("");
-  const [distance, setDistance] = useState("Alle afstanden");
-  const [dateTime, setDateTime] = useState("2021-10-31T11:47");
+  const [service, setService] = useState(initial.service);
+  const [postalCode, setPostalCode] = useState(initial.postalCode);
+  const [distance, setDistance] = useState(initial.distance);
+  const [dateTime, setDateTime] = useState(initial.dateTimeStr);
+
+  const close = () => setIsOpen(false);
 
   if (!isOpen) return null;
 
@@ -36,23 +35,30 @@ export const SearchDialog: FC<SearchDialogProps> = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen}
       onDismiss={() => setIsOpen(false)}
       aria-label="Wat zoek je?"
-      className="w-full h-full"
+      className="animate-fade-in-down h-full sm:h-auto sm:mt-20 bg-gray-100 drop-shadow-xl sm:max-w-xl mx-auto rounded-lg"
     >
-      <div className="w-full h-full">
+      <div className="w-full h-full bg-grey-100 overflow-auto">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             router.push(
-              `zoeken?s=${service.id}&p=${postalCode}&d=${distance}&data=${dateTime}`
+              `zoeken?s=${service.id}&p=${postalCode}&d=${distance}&date=${dateTime}`
             );
-            setIsOpen(false);
+            close();
           }}
-          className="relative flex flex-col bg-white w-full h-full"
+          className="relative flex flex-col w-full h-full"
         >
-          <button onClick={() => setIsOpen(false)}>Terug</button>
-
-          <div className="my-4 flex flex-col gap-2">
-            <span>Dienst</span>
+          <div className="flex w-full bg-white p-4 ">
+            <button onClick={close} className="grid items-center">
+              <span className="sr-only">Terug</span>
+              <BiChevronLeft className="text-2xl" />
+            </button>
+            <span className="text-center w-full">
+              Waar ben je naar op zoek?
+            </span>
+          </div>
+          <div className="font-semibold text-sm mt-6 mb-2 px-4">Dienst</div>
+          <div className="flex flex-wrap p-4 gap-4 bg-white text-sm">
             {services.map((p) => {
               const isSelected = p.id === service.id;
               return (
@@ -60,7 +66,10 @@ export const SearchDialog: FC<SearchDialogProps> = ({ isOpen, setIsOpen }) => {
                   type="button"
                   key={p.id}
                   onClick={() => setService(p)}
-                  className={isSelected ? "border-2 border-red-400" : ""}
+                  className={cx(
+                    "p-4 border rounded-md",
+                    isSelected ? "border-indigo-400" : "border-gray-200"
+                  )}
                 >
                   {p.name}
                 </button>
@@ -68,23 +77,22 @@ export const SearchDialog: FC<SearchDialogProps> = ({ isOpen, setIsOpen }) => {
             })}
           </div>
 
-          <div className="my-4 flex flex-col gap-2">
-            <span>Waar?</span>
-            <label>
-              Postcode
-              <input
-                // required
-                placeholder="1000 AA"
-                autoComplete="off"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-              />
-            </label>
+          <div className="font-semibold text-sm mt-6 mb-2 px-4">Locatie</div>
+          <div className="flex flex-row p-4 bg-white">
+            <input
+              required
+              placeholder="1000 AA"
+              autoComplete="off"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              className="w-20 p-2 mr-4"
+            />
 
             <select
               required
               value={distance}
               onChange={(e) => setDistance(e.target.value)}
+              className="form-select block w-full bg-white"
             >
               <option>Alle afstanden</option>
               <option>{`< 3 km`}</option>
@@ -94,20 +102,27 @@ export const SearchDialog: FC<SearchDialogProps> = ({ isOpen, setIsOpen }) => {
             </select>
           </div>
 
-          <div className="my-4 flex flex-col gap-2">
-            <span>Datum en tijd</span>
-            <label>
-              Datum
-              <input
-                // required
-                type="datetime-local"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-              />
-            </label>
+          <div className="font-semibold text-sm mt-6 mb-2 px-4">
+            Datum en tijdstip
           </div>
 
-          <input type="submit" value="Zoeken" />
+          <div className="p-4 bg-white">
+            <input
+              required
+              type="datetime-local"
+              value={dateTime}
+              onChange={(e) => setDateTime(e.target.value)}
+              className="p-2 rounded-full bg-gray-50"
+            />
+          </div>
+
+          <div className="flex justify-end w-full mt-4 p-4">
+            <input
+              type="submit"
+              value="Zoeken"
+              className="justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            />
+          </div>
         </form>
       </div>
     </Dialog>

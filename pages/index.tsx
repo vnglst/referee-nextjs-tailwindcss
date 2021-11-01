@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Head from "next/head";
 import { SearchDialog } from "components/SearchDialog";
+import { services } from "data";
 
-export default function Home() {
+export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -10,12 +11,19 @@ export default function Home() {
       <Head>
         <title>Referee</title>
       </Head>
-      <div className="min-h-full">
+      <main className="min-h-full">
         <button onClick={() => setIsOpen(true)}>
           Waar ben je naar op zoek?
         </button>
-      </div>
-      <SearchDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      </main>
+      <SearchDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        service={services[0]}
+        postalCode=""
+        distance="Alle afstanden"
+        dateTimeStr=""
+      />
     </>
   );
 }

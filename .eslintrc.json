@@ -27,7 +27,7 @@
     "no-empty-pattern": ["error"],
     "no-return-await": ["warn"],
     "no-shadow": ["warn"],
-    "require-await": ["error"],
+    "require-await": ["warn"],
     "eqeqeq": ["error"],
     "array-callback-return": ["error"],
     "default-case": ["error"],
@@ -47,7 +47,7 @@
       }
     ],
     "no-console": [
-      2,
+      1,
       {
         "allow": ["warn", "error"]
       }
